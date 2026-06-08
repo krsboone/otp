@@ -1,0 +1,14 @@
+{
+  "name": "otp-service",
+  "version": "1.0.0",
+  "description": "OTP 2FA service using Vonage Verify v2",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@vonage/server-sdk": "^3.x",
+    "dotenv": "^16.x",
+    "express": "^4.x"
+  }
+}
