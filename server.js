@@ -38,6 +38,12 @@ app.post('/start', async (req, res) => {
     return res.status(400).json({ error: 'code_length must be between 4 and 10' });
   }
 
+  const allowFilter = process.env.ALLOW_FILTER;
+  if (allowFilter && (channel === 'sms' || channel === 'voice') && !to.startsWith(allowFilter)) {
+    log('POST /start — rejected by ALLOW_FILTER', { to, allowFilter });
+    return res.status(403).json({ error: `Request rejected: 'to' number must begin with '${allowFilter}'` });
+  }
+
   const workflowEntry = (channel === 'email' && from_email)
     ? { channel, to, from: from_email }
     : { channel, to };
