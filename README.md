@@ -19,7 +19,10 @@ VONAGE_API_SECRET=your_api_secret
 VONAGE_APPLICATION_ID=your_application_id
 VONAGE_APPLICATION_PRIVATE_KEY_PATH=private.key
 PORT=3000
+ALLOW_FILTER='+1'
 ```
+
+`ALLOW_FILTER` is optional. When set, any `/start` request with `channel: sms` or `channel: voice` will be rejected with a `403` if the `to` number does not begin with that string. Useful for restricting OTP delivery to a specific country code. Remove or leave blank to allow all numbers.
 
 > `config/` is gitignored — credentials never leave your machine.
 
