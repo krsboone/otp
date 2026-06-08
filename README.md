@@ -30,6 +30,14 @@ npm install
 npm start
 ```
 
+To enable debug logging (prints incoming body, Vonage request payload, and full response/error):
+
+```bash
+DEBUG=true npm start
+```
+
+Or add `DEBUG=true` to `config/.env` to keep it on persistently.
+
 ---
 
 ## API
