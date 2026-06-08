@@ -62,14 +62,11 @@ app.post('/start', async (req, res) => {
     return res.status(200).json({ request_id: requestId });
   } catch (err) {
     const status = err.response?.status || 500;
-    const detail = err.response?.data ?? err.message;
     log('POST /start — Vonage error', {
       status,
-      data: err.response?.data,
-      headers: err.response?.headers,
       message: err.message,
     });
-    return res.status(status).json({ error: detail });
+    return res.status(status).json({ error: err.message });
   }
 });
 
@@ -93,14 +90,11 @@ app.post('/validate', async (req, res) => {
     return res.status(200).json(response);
   } catch (err) {
     const status = err.response?.status || 500;
-    const detail = err.response?.data ?? err.message;
     log('POST /validate — Vonage error', {
       status,
-      data: err.response?.data,
-      headers: err.response?.headers,
       message: err.message,
     });
-    return res.status(status).json({ error: detail });
+    return res.status(status).json({ error: err.message });
   }
 });
 
