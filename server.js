@@ -90,7 +90,7 @@ app.post('/validate', async (req, res) => {
   try {
     const response = await vonage.verify2.checkCode(request_id, code);
     log('POST /validate — Vonage response', response);
-    return res.status(200).json({ status: response.status });
+    return res.status(200).json(response);
   } catch (err) {
     const status = err.response?.status || 500;
     const detail = err.response?.data ?? err.message;
