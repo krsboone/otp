@@ -38,11 +38,7 @@ app.post('/start', async (req, res) => {
     return res.status(400).json({ error: 'code_length must be between 4 and 10' });
   }
 
-  if (channel === 'email' && !from_email) {
-    return res.status(400).json({ error: 'from_email is required when channel is email' });
-  }
-
-  const workflowEntry = channel === 'email'
+  const workflowEntry = (channel === 'email' && from_email)
     ? { channel, to, from: from_email }
     : { channel, to };
 
