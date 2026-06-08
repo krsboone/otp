@@ -11,13 +11,11 @@ const vonage = new Vonage({
   privateKey: path.join(__dirname, 'config', 'private.key'),
 });
 
-const FROM_EMAIL = process.env.VONAGE_FROM_EMAIL;
-
 // POST /start
-// Body: { channel, to, timeout, code_length, brand }
+// Body: { channel, to, from_email, timeout, code_length, brand }
 // Returns: { request_id }
 app.post('/start', async (req, res) => {
-  const { channel, to, timeout, code_length, brand } = req.body;
+  const { channel, to, from_email, timeout, code_length, brand } = req.body;
 
   if (!channel || !to || !brand) {
     return res.status(400).json({ error: 'channel, to, and brand are required' });
@@ -31,12 +29,12 @@ app.post('/start', async (req, res) => {
     return res.status(400).json({ error: 'code_length must be between 4 and 10' });
   }
 
-  if (channel === 'email' && !FROM_EMAIL) {
-    return res.status(500).json({ error: 'VONAGE_FROM_EMAIL is not set in config' });
+  if (channel === 'email' && !from_email) {
+    return res.status(400).json({ error: 'from_email is required when channel is email' });
   }
 
   const workflowEntry = channel === 'email'
-    ? { channel, to, from: FROM_EMAIL }
+    ? { channel, to, from: from_email }
     : { channel, to };
 
   const request = {
